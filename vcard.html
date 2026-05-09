@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sree Gajanana Group | Elite V-Card</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8EB95D;
+            --primary-glow: rgba(142, 185, 93, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-dark: #1a1c1a;
+        }
+
+        body {
+            margin: 0; padding: 20px;
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: #f0f4ef;
+            background: radial-gradient(circle at 50% 50%, #f0f4ef 0%, #d9e2d5 100%);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+        }
+
+        /* ── ANIMATED BACKGROUND ── */
+        #particles-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
+        }
+
+        .bg-blob {
+            position: fixed;
+            width: 500px; height: 500px;
+            background: var(--primary-glow);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -2;
+            animation: moveBlob 15s infinite alternate;
+            opacity: 0.4;
+        }
+        @keyframes moveBlob {
+            0% { transform: translate(-20%, -20%); }
+            100% { transform: translate(20%, 20%); }
+        }
+
+        /* ── LUXURY LANDSCAPE CARD ── */
+        .card-container {
+            width: 95vw;
+            max-width: 480px;
+            aspect-ratio: 89 / 51;
+            perspective: 2000px;
+            margin-bottom: 30px;
+        }
+
+        .card-inner {
+            width: 100%; height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .card-container.flipped .card-inner { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            padding: 1.2rem;
+            box-sizing: border-box;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1), inset 0 0 30px rgba(255,255,255,0.4);
+            overflow: hidden;
+        }
+
+        /* Animated Watermark Overlay */
+        .card-watermark {
+            position: absolute;
+            width: 150%; height: 150%;
+            top: -25%; left: -25%;
+            background: url('LOGO/mainlogo2.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.04;
+            z-index: 2;
+            pointer-events: none;
+            animation: watermarkFlow 25s linear infinite;
+        }
+        @keyframes watermarkFlow {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Glass Shine Animation */
+        .card-front::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg);
+            z-index: 3;
+            animation: glassShine 6s infinite;
+        }
+        @keyframes glassShine {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+        }
+
+        /* 1. Brand Names at Top */
+        .top-branding {
+            text-align: center;
+        }
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin: 0;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .amp {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin: 2px 0;
+            font-weight: 900;
+        }
+
+        /* 2. Central Logo (85px) */
+        .center-logo-wrap {
+            width: 85px; height: 85px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            padding: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08), 0 0 15px var(--primary-glow);
+            border: 2px solid var(--primary);
+            animation: pulseLogo 3s ease-in-out infinite;
+        }
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 30px var(--primary-glow); }
+        }
+        .center-logo { width: 100%; height: auto; border-radius: 50%; }
+
+        /* 3. Partner Logos at Bottom */
+        .bottom-strip {
+            display: flex; gap: 12px;
+            padding-bottom: 5px;
+        }
+        .partner-logo {
+            width: 42px; height: 42px;
+            background: #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            padding: 5px; border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .partner-logo:hover { transform: translateY(-5px) scale(1.1); border-color: var(--primary); }
+        .partner-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* ── BACK SIDE ── */
+        .card-back { transform: rotateY(180deg); justify-content: center; }
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 20px; width: 100%;
+        }
+        .contact-card {
+            background: rgba(255,255,255,0.5);
+            padding: 12px; border-radius: 12px;
+            display: flex; align-items: center; gap: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: 0.3s;
+        }
+        .contact-card:hover { background: #fff; transform: translateY(-3px); }
+        .contact-card i { color: var(--primary); font-size: 1.2rem; }
+        .contact-text { font-size: 0.8rem; font-weight: 800; color: var(--text-dark); }
+
+        /* ── ACTIONS ── */
+        .actions-wrap {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px; 
+            width: 100%; 
+            max-width: 480px;
+            margin-bottom: 25px;
+        }
+        .act-btn {
+            background: var(--glass-bg); backdrop-filter: blur(10px);
+            padding: 15px; border-radius: 18px;
+            text-decoration: none; color: var(--text-dark);
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            border: 1px solid var(--glass-border); transition: 0.3s;
+            font-weight: 700; font-size: 0.75rem;
+        }
+        .act-btn:hover { background: #fff; transform: translateY(-5px); border-color: var(--primary); }
+        .act-btn i { color: var(--primary); font-size: 1.3rem; }
+
+        .save-now {
+            width: 100%; max-width: 480px;
+            background: var(--primary); color: #fff;
+            padding: 20px; border-radius: 20px;
+            border: none; cursor: pointer; font-weight: 900;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            font-size: 1rem; text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 15px 30px rgba(142, 185, 93, 0.3);
+            transition: 0.3s;
+        }
+        .save-now:hover { transform: scale(1.02); background: #769E4B; }
+
+        @media (max-width: 450px) {
+            .brand-name { font-size: 0.85rem; }
+            .center-logo-wrap { width: 70px; height: 70px; }
+            .partner-logo { width: 32px; height: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    <div class="bg-blob"></div>
+
+    <h1 class="brand-name" style="margin-bottom: 20px; font-size: 1.2rem; opacity: 0.7;">DIVYA & GAJANANA GROUP</h1>
+
+    <div class="card-container" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="card-watermark"></div>
+                <div class="card-content">
+                    <div class="top-branding">
+                        <h2 class="brand-name">DIVYA TAX & WEALTH ADVISORS</h2>
+                        <div class="amp">&</div>
+                        <h2 class="brand-name">SREE GAJANANA ENTERPRISES</h2>
+                    </div>
+
+                    <div class="center-logo-wrap">
+                        <img src="LOGO/mainlogo2.png" class="center-logo" alt="Main Logo">
+                    </div>
+
+                    <div class="bottom-strip">
+                        <div class="partner-logo"><img src="LOGO/artos.png" alt="Artos"></div>
+                        <div class="partner-logo"><img src="LOGO/surya.png" alt="Surya"></div>
+                        <div class="partner-logo"><img src="LOGO/continental.png" alt="Continental"></div>
+                        <div class="partner-logo"><img src="LOGO/parrys.png" alt="Parrys"></div>
+                        <div class="partner-logo"><img src="LOGO/yutika.png" alt="Yutika"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-back">
+                <div class="contact-grid" style="grid-template-columns: 1fr; gap: 10px;">
+                    <!-- Office Address Centered -->
+                    <div class="contact-card" style="flex-direction: column; align-items: center; text-align: center; padding: 8px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span class="contact-text" style="font-size: 0.95rem; color: var(--primary); letter-spacing: 1px;">OUR OFFICE</span>
+                        </div>
+                        <span class="contact-text" style="line-height: 1.3; opacity: 1; font-size: 0.85rem; font-weight: 700;">
+                            76-1-523, SFS 523, Opp: VMC Hall,<br>
+                            New HB Colony, Bhavani Puram,<br>
+                            Vijayawada – 520012
+                        </span>
+                    </div>
+                    
+                    <!-- Dual Phone Numbers Centered -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <div class="contact-card" style="justify-content: center; padding: 10px;">
+                            <i class="fa-solid fa-phone"></i>
+                            <span class="contact-text" style="font-size: 0.85rem; font-weight: 900;">+91 81258 12508</span>
+                        </div>
+                        <div class="contact-card" style="justify-content: center; padding: 10px;">
+                            <i class="fa-solid fa-phone"></i>
+                            <span class="contact-text" style="font-size: 0.85rem; font-weight: 900;">+91 81252 07888</span>
+                        </div>
+                    </div>
+
+                    <!-- Email Centered -->
+                    <div class="contact-card" style="justify-content: center; padding: 10px;">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span class="contact-text" style="font-size: 0.9rem; font-weight: 900;">gajananavja@gmail.com</span>
+                    </div>
+                </div>
+                <p style="font-size: 0.5rem; margin-top: 10px; font-weight: 800; opacity: 0.4;">TAP TO FLIP</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions-wrap">
+        <a href="tel:+918125812508" class="act-btn"><i class="fa-solid fa-phone"></i> Call</a>
+        <a href="https://wa.me/918125812508" class="act-btn"><i class="fab fa-whatsapp"></i> Chat</a>
+        <a href="mailto:contact@gajanana.com" class="act-btn"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a href="index.html" class="act-btn"><i class="fa-solid fa-house"></i> Home</a>
+    </div>
+
+    <button class="save-now" onclick="downloadVCF()">
+        <i class="fa-solid fa-user-plus"></i> Save Contact
+    </button>
+
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+
+        function createParticle(startY) {
+            return {
+                x: Math.random() * canvas.width,
+                y: startY !== undefined ? startY : Math.random() * canvas.height,
+                r: Math.random() * 5 + 2,
+                dx: (Math.random() - 0.5) * 0.8,
+                dy: -(Math.random() * 0.5 + 0.2),
+                alpha: Math.random() * 0.6 + 0.4,
+                glow: Math.random() * 15 + 5,
+                color: ['142,185,93', '66,133,244', '234,67,53', '251,188,5', '37,211,102'][Math.floor(Math.random() * 5)]
+            };
+        }
+        for (let i = 0; i < 300; i++) particles.push(createParticle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.x += p.dx; p.y += p.dy; p.alpha -= 0.0005;
+                if (p.alpha <= 0 || p.y < -20) particles[i] = createParticle(canvas.height + 20);
+                const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.glow);
+                grad.addColorStop(0, `rgba(${p.color},${p.alpha * 0.5})`);
+                grad.addColorStop(1, `rgba(${p.color},0)`);
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.glow, 0, Math.PI * 2);
+                ctx.fillStyle = grad; ctx.fill();
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${p.color},${p.alpha})`; ctx.fill();
+            }); requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        function downloadVCF() {
+            const vcfData = `BEGIN:VCARD\nVERSION:3.0\nFN:Sree Gajanana Group\nORG:Divya Tax & Wealth Advisors;Sree Gajanana Enterprises\nTEL:+918125812508\nEMAIL:contact@gajanana.com\nEND:VCARD`;
+            const blob = new Blob([vcfData], { type: 'text/vcard' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'Elite_Contact.vcf'; a.click();
+        }
+    </script>
+</body>
+</html>
